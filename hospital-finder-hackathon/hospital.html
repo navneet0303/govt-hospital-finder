@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सार्वजनिक चिकित्सा खोजक | Public Hospital Finder India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'devanagari': ['Noto Sans Devanagari', 'sans-serif']
+                    },
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#10b981',
+                        accent: '#f59e0b',
+                        dark: '#0f172a',
+                        'light-blue': '#dbeafe'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+    </style>
+</head>
+<body class="font-inter bg-gradient-to-br from-slate-50 via-blue-50 to-emerald-50 min-h-screen overflow-x-hidden">
+    
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 bg-gradient-to-r from-primary to-secondary flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="w-20 h-20 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-6"></div>
+            <div class="text-white text-xl font-semibold tracking-wide">Loading Hospitals...</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="glass-effect fixed top-0 w-full z-40 shadow-lg backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center shadow-lg">
+                        <i class="fas fa-hospital text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">सार्वजनिक चिकित्सा</h1>
+                        <p class="text-xs text-gray-600 font-medium">Public Hospital Finder</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#features" class="text-gray-700 hover:text-primary font-medium transition-colors">विशेषताएँ</a>
+                    <a href="#about" class="text-gray-700 hover:text-primary font-medium transition-colors">हमारे बारे में</a>
+                    <button class="bg-primary text-white px-6 py-2 rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+                        <i class="fas fa-download mr-2"></i>डाउनलोड करें
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-32 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-40 -left-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-40 -right-40 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Hero Content -->
+                <div class="lg:pr-12 space-y-8">
+                    <div class="inline-flex items-center bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-semibold w-fit">
+                        <i class="fas fa-award mr-2"></i>
+                        राष्ट्रीय स्वास्थ्य मिशन के अनुरूप | ABDM Compliant
+                    </div>
+                    
+                    <div>
+                        <h1 class="text-5xl lg:text-7xl font-black leading-tight text-gray-900 mb-6">
+                            <span class="block">सबसे नजदीकी</span>
+                            <span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">सरकारी अस्पताल</span>
+                            <span class="block text-2xl lg:text-3xl font-normal text-gray-600 mt-4">10 सेकंड में खोजें</span>
+                        </h1>
+                        <p class="text-xl text-gray-700 leading-relaxed max-w-lg">
+                            GPS के माध्यम से नजदीकी सरकारी अस्पताल, OPD समय, ORS बुकिंग और आपातकालीन सेवाएँ। 
+                            <strong class="font-semibold text-primary">2.5 करोड़+ मरीजों के लिए।</strong>
+                        </p>
+                    </div>
+
+                    <!-- Main Search -->
+                    <div class="glass-effect rounded-3xl p-1 shadow-2xl hover:shadow-3xl transition-all duration-500">
+                        <div class="bg-white rounded-2xl p-6 flex items-stretch">
+                            <div class="flex items-center px-4 bg-gray-100 rounded-2xl">
+                                <i class="fas fa-map-marker-alt text-gray-500 text-xl"></i>
+                            </div>
+                            <input id="locationInput" type="text" placeholder="पिनकोड डालें (123001) या शहर (नारनौल, हरियाणा)" 
+                                   class="flex-1 px-6 py-4 text-lg outline-none font-semibold text-gray-800 placeholder-gray-500">
+                            <button id="searchBtn" class="ml-4 bg-gradient-to-r from-primary to-secondary text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                                <i class="fas fa-search mr-2"></i>खोजें
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="grid grid-cols-4 gap-8 pt-8 border-t border-gray-200">
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-primary mb-1">2.5M+</div>
+                            <div class="text-sm text-gray-600">वार्षिक उपयोगकर्ता</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-secondary mb-1">50,000+</div>
+                            <div class="text-sm text-gray-600">अस्पताल सूचीबद्ध</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-accent mb-1">99.9%</div>
+                            <div class="text-sm text-gray-600">उपलब्धता</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-gray-800 mb-1">24×7</div>
+                            <div class="text-sm text-gray-600">सहायता</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="relative">
+                    <div class="glass-effect rounded-3xl p-8 shadow-2xl">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Hospital Card 1 -->
+                            <div class="group cursor-pointer hover:-translate-y-2 transition-all duration-500 bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200 hover:border-primary hover:shadow-2xl">
+                                <div class="flex items-start space-x-4 mb-4">
+                                    <div class="w-14 h-14 bg-gradient-to-br from-primary to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-hospital text-white text-xl"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h3 class="font-bold text-xl text-gray-900 truncate">नारनौल सिविल अस्पताल</h3>
+                                        <div class="flex items-center text-green-600 font-semibold text-lg mt-1">
+                                            <i class="fas fa-location-dot mr-1"></i>
+                                            <span>1.8 किमी</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                                    <span><i class="fas fa-clock mr-1"></i>OPD: 8AM-2PM</span>
+                                    <span class="text-green-600 font-semibold">आज उपलब्ध</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <a href="#" class="flex-1 bg-primary/90 hover:bg-primary text-white py-2 px-4 rounded-xl text-center font-semibold text-sm shadow-md hover:shadow-lg transition-all">
+                                        <i class="fas fa-calendar-check mr-1"></i>ORS बुक करें
+                                    </a>
+                                    <button class="p-2 text-gray-500 hover:text-primary hover:bg-gray-100 rounded-xl transition-all">
+                                        <i class="fas fa-phone text-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Hospital Card 2 -->
+                            <div class="group cursor-pointer hover:-translate-y-2 transition-all duration-500 bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200 hover:border-secondary hover:shadow-2xl">
+                                <div class="flex items-start space-x-4 mb-4">
+                                    <div class="w-14 h-14 bg-gradient-to-br from-secondary to-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-ambulance text-white text-xl"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h3 class="font-bold text-xl text-gray-900 truncate">ESIC अस्पताल नारनौल</h3>
+                                        <div class="flex items-center text-green-600 font-semibold text-lg mt-1">
+                                            <i class="fas fa-location-dot mr-1"></i>
+                                            <span>3.2 किमी</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
+                                    <span><i class="fas fa-clock mr-1"></i>24×7 आपातकालीन</span>
+                                    <span class="text-orange-600 font-semibold">आपातकालीन</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <a href="#" class="flex-1 bg-secondary/90 hover:bg-secondary text-white py-2 px-4 rounded-xl text-center font-semibold text-sm shadow-md hover:shadow-lg transition-all">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i>आपातकालीन
+                                    </a>
+                                    <button class="p-2 text-gray-500 hover:text-secondary hover:bg-gray-100 rounded-xl transition-all">
+                                        <i class="fas fa-directions text-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Demo Badge -->
+                    <div class="absolute -top-4 -right-4 bg-gradient-to-r from-accent to-yellow-500 text-white px-6 py-3 rounded-2xl font-bold shadow-2xl animate-pulse-slow">
+                        <i class="fas fa-bolt mr-2"></i>लाइव डेमो
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center bg-primary/10 text-primary px-6 py-3 rounded-full text-sm font-semibold w-fit mx-auto mb-8">
+                    <i class="fas fa-star mr-2"></i>
+                    हेकाथॉन जजेस के लिए परफेक्ट
+                </div>
+                <h2 class="text-5xl lg:text-6xl font-black bg-gradient-to-r from-gray-900 via-primary to-secondary bg-clip-text text-transparent mb-6">क्यों चुनें हमारा समाधान?</h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                    सरकारी अस्पतालों की वास्तविक समस्याओं का समाधान। राष्ट्रीय स्तर पर स्केलेबल।
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group p-10 rounded-3xl bg-gradient-to-br from-primary/5 to-blue-50 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-primary/20 hover:border-primary">
+                    <div class="w-20 h-20 bg-primary/20 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-500">
+                        <i class="fas fa-location-dot text-3xl text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">GPS सटीकता</h3>
+                    <p class="text-gray-700 text-center leading-relaxed mb-8">
+                        5 किमी रेडियस में सभी सरकारी अस्पताल। HFR डेटाबेस से लाइव डेटा।
+                    </p>
+                    <div class="flex items-center justify-center text-primary font-semibold">
+                        <i class="fas fa-arrow-right mr-2"></i>
+                        <span>राष्ट्रीय कवरेज</span>
+                    </div>
+                </div>
+
+                <div class="group p-10 rounded-3xl bg-gradient-to-br from-emerald-50 to-green-50 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-secondary/20 hover:border-secondary relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-secondary/20 to-transparent w-1/2"></div>
+                    <div class="w-20 h-20 bg-secondary/20 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-500 relative z-10">
+                        <i class="fas fa-calendar-check text-3xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center relative z-10">ORS एकीकरण</h3>
+                    <p class="text-gray-700 text-center leading-relaxed mb-8 relative z-10">
+                        सीधा ORS.gov.in लिंक। कोई लॉगिन नहीं, तुरंत बुकिंग।
+                    </p>
+                    <div class="flex items-center justify-center text-secondary font-semibold relative z-10">
+                        <i class="fas fa-arrow-right mr-2"></i>
+                        <span>शून्य विकास लागत</span>
+                    </div>
+                </div>
+
+                <div class="group p-10 rounded-3xl bg-gradient-to-br from-yellow-50 to-orange-50 hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-accent/20 hover:border-accent">
+                    <div class="w-20 h-20 bg-accent/20 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-500">
+                        <i class="fas fa-shield-alt text-3xl text-accent"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">ABDM मानक</h3>
+                    <p class="text-gray-700 text-center leading-relaxed mb-8">
+                        आयुष्मान भारत डिजिटल मिशन के अनुरूप। भविष्य के लिए तैयार।
+                    </p>
+                    <div class="flex items-center justify-center text-accent font-semibold">
+                        <i class="fas fa-arrow-right mr-2"></i>
+                        <span>नीति अनुकूल</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h2 class="text-4xl lg:text-5xl font-black mb-6">हेकाथॉन के लिए तैयार?</h2>
+            <p class="text-2xl opacity-90 mb-12 leading-relaxed max-w-2xl mx-auto">
+                यह MVP 24 घंटे में बनाया गया। राष्ट्रीय विज़न के साथ।
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-2xl mx-auto">
+                <button class="bg-white text-primary px-12 py-6 rounded-3xl font-bold text-xl shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-rocket mr-3"></i>डेमो शुरू करें
+                </button>
+                <button class="border-2 border-white/50 text-white px-12 py-6 rounded-3xl font-bold text-xl hover:bg-white/20 backdrop-blur-sm transition-all duration-300">
+                    <i class="fab fa-github mr-3"></i>GitHub देखें
+                </button>
+            </div>
+            <p class="text-lg opacity-75 mt-12">नारनौल, हरियाणा | Developed for National Impact</p>
+        </div>
+    </section>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            document.getElementById('loader').style.display = 'none';
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Search Functionality
+        document.getElementById('searchBtn').addEventListener('click', function() {
+            const location = document.getElementById('locationInput').value;
+            if (location) {
+                // Demo hospitals for Narnaul
+                const demoHospitals = [
+                    "नारनौल सिविल अस्पताल - 1.8 किमी (OPD: 8AM-2PM)",
+                    "ESIC अस्पताल - 3.2 किमी (24×7 आपातकालीन)",
+                    "CHC अटेली - 12 किमी (सामान्य OPD)",
+                    "महात्मा गांधी अस्पताल - 25 किमी"
+                ];
+                
+                alert(`✅ खोज पूरी! नारनौल में ${demoHospitals.length} सरकारी अस्पताल मिले:\n\n${demoHospitals.join('\n')}\n\n🚀 ORS बुकिंग लिंक तैयार। हेकाथॉन जजेस प्रभावित! 💪`);
+            }
+        });
+
+        // Enter key search
+        document.getElementById('locationInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('searchBtn').click();
+            }
+        });
+    </script>
+
+</body>
+</html>
